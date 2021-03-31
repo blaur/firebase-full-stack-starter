@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "firebase-full-stack-starter"
+  },
+  "targets": {
+    "firebase-full-stack-starter": {
+      "hosting": {
+        "react-frontend": [
+          "fir-full-stack-starter"
+        ]
+      }
+    }
+  }
+}

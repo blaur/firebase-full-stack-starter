@@ -1,0 +1,39 @@
+{
+  "collection": "@nestjs/schematics",
+  "root": "apps/firebase-full-stack-starter",
+  "sourceRoot": "apps/firebase-full-stack-starter/src",
+  "monorepo": true,
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/firebase-full-stack-starter/tsconfig.app.json"
+  },
+  "projects": {
+    "firebase-full-stack-starter": {
+      "type": "application",
+      "root": "apps/firebase-full-stack-starter",
+      "entryFile": "main",
+      "sourceRoot": "apps/firebase-full-stack-starter/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/firebase-full-stack-starter/tsconfig.app.json"
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    },
+    "my-app-domain": {
+      "type": "application",
+      "root": "apps/my-app-domain",
+      "entryFile": "main",
+      "sourceRoot": "apps/my-app-domain/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/my-app-domain/tsconfig.app.json"
+      }
+    }
+  }
+}
