@@ -34,7 +34,9 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
-    "tsconfig-paths": "^3.9.0"
+    "tsconfig-paths": "^3.9.0",
+    "@golevelup/nestjs-discovery": "^2.3.1",
+    "lodash.flatmap": "^4.5.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",

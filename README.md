@@ -14,6 +14,20 @@ In both the above, it has been configured to use eslint and prettifer and it als
 
 Test the api here: https://europe-west1-firebase-full-stack-starter.cloudfunctions.net/appDomainApi/
 
+## Folder Structure
+
+    .
+    ├── functions                    # NestJS backend for Firebase functions
+    │   ├── src                      # All source code
+    │       ├── apps                 # All NestJS app modules
+            ├── config               # Configuration for the backend
+            ├── libs                 # All NestJS libs
+            └── ...                  # etc.
+    └── react-frontend
+
+# NestJS Backend
+
+
 ## Adding Apps and Libs
 Since this is just a NestJS project one can simply use the Nest CLI to generate new libs and apps according to the NestJS Docs. 
 
@@ -30,9 +44,17 @@ $ cd functions/src
 $ nest generate app my-app-domain
 ```
 
+## Configure Firebase Functions
+In this project, there are three examples of firebase functions. 
+1) Https On Request (hosting the NestJS api)
+2) Pubsub Topic On Publish Listener
+3) Pubsub Cloud Scheduler
+
+### On Request Function
+
 To then wire it up with firebase use (look at apps/firebase-full-stack-starter/src/index.ts):
 
-```bash
+```javascript
 const expressServer = express();
 
 const createFunction = async (expressInstance): Promise<void> => {
@@ -52,10 +74,65 @@ export const appDomainApi = functions
   });
 ```
 
+### Pubsub Topic Handler
+Use the PubsubService to register your topic. Provide the topic to listener for and then also the domain from where it should find the actual handler. The Pubsub Service will look for classes decorated with OnMessage with the topic: 
+
+```javascript
+// Pubsub listening on 'my-event'
+export const onMyEvent = PubsubService.topic('my-event', AppDomainModule);
+
+......
+
+@Injectable()
+export class MyEventListener {
+  constructor(private readonly logging: FirebaseLoggingService) {}
+
+  @OnMessage({
+    topic: 'my-event',
+  })
+  async onMyEventMessage(message: Message): Promise<void> {
+    this.logging.log(
+      `Handling my event and received message ${JSON.stringify(message)}`,
+    );
+  }
+}
+
+```
+
+
+
+### Pubsub Cloud Scheduler
+To initiate the cloud schedule then first create a class with the PubsubScheduleInterface interface and instantiate it as seen here:
+
+```javascript
+// Pubsub scheduler
+export const mySchedule = PubsubService.schedule(
+  `every monday 06:00`,
+  AppDomainModule,
+  MyScheduleScheduler,
+);
+
+......
+
+@Injectable()
+export class MyScheduleScheduler implements PubsubScheduleInterface {
+  constructor(private readonly logging: FirebaseLoggingService) {}
+
+  schedule(context: EventContext): Promise<any> {
+    this.logging.log(`We are now handling stuff in ${MyScheduleScheduler}`);
+
+    return null;
+  }
+}
+
+```
+
+
 ## Installation
 
 ```bash
-$ npm install
+$ npm run install-all
+$ npm run build
 ```
 
 ## Deployment
@@ -91,7 +168,7 @@ $ test:app-domain::e2e
 $ npm run test:cov
 ```
 
-## React Frontend
+# React Frontend
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
@@ -132,9 +209,19 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Stay in touch
+## Deployment
+
+```bash
+# Run linting on the react frontend
+$ npm run lint-react
+
+# Build and deploy
+$ npm run deploy:react-frontend:dev
+```
+
+# Stay in touch
 
 - Author - [Brian Bak Laursen](https://github.com/blaur/)
 
-## License
+# License
 

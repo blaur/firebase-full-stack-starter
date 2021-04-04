@@ -1,7 +1,7 @@
 import { SharedModule } from '@app/shared';
 import { Module } from '@nestjs/common';
-import { AppDomainController } from './app-domain.controller';
-import { AppDomainService } from './app-domain.service';
+import { AppDomainController } from './api/app-domain.controller';
+import { AppDomainService } from './api/app-domain.service';
 
 @Module({
   imports: [SharedModule],
