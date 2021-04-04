@@ -30,7 +30,7 @@ export const onMyEvent = PubsubService.topic('my-event', AppDomainModule);
 
 // Pubsub scheduler
 export const onMySchedule = PubsubService.schedule(
-  '0 3 * * *',
+  `every monday 06:00`,
   AppDomainModule,
   MyScheduleScheduler,
   { timeoutSeconds: 540 },

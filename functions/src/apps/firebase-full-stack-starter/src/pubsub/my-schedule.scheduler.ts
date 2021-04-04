@@ -8,7 +8,9 @@ export class MyScheduleScheduler implements PubsubScheduleInterface {
   constructor(private readonly logging: FirebaseLoggingService) {}
 
   schedule(context: EventContext): Promise<any> {
-    this.logging.log(`We are now handling stuff in ${MyScheduleScheduler}`);
+    this.logging.log(
+      `We are now handling stuff in ${MyScheduleScheduler.name}`,
+    );
 
     return null;
   }

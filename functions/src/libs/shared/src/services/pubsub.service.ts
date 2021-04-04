@@ -72,10 +72,10 @@ export class PubsubService {
       ? region('europe-west1')
           .runWith(runtimeOptions)
           .pubsub.schedule(schedule)
-          .timeZone('Europe/London')
+          .timeZone('Europe/Copenhagen')
       : region('europe-west1')
           .pubsub.schedule(schedule)
-          .timeZone('Europe/London');
+          .timeZone('Europe/Copenhagen');
 
     return scheduleFn.onRun(async (context: EventContext) => {
       const nest = await NestFactory.createApplicationContext(module);
@@ -85,6 +85,7 @@ export class PubsubService {
 
         return handler.schedule(context);
       } catch (error) {
+        console.log(error);
         new Logger(PubsubService.name).error(
           "PubsubSchedule provider not found, make sure that you imported 'NestFirebaseModule' into your module",
         );
