@@ -27,6 +27,7 @@
   "dependencies": {
     "@firebase/testing": "^0.20.11",
     "@golevelup/nestjs-discovery": "^2.3.1",
+    "@google-cloud/pubsub": "^2.16.0",
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
