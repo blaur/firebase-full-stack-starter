@@ -11,7 +11,7 @@
     "lint": "cd ./functions/src && npm run format && npm run lint",
     "inject:dev": "cross-env NODE_ENV=dev node injectConfig.js && cross-env NODE_ENV=default node injectConfig.js",
     "deploy:dev": "cross-env NODE_ENV=dev node injectConfig.js && cd ./functions/src && npm run build && cd ../../ && npm run deployStart && cross-env NODE_ENV=default node injectConfig.js",
-    "deployStart": "firebase deploy --only functions:onMySchedule,functions:appDomainApi,functions:onMyEvent",
+    "deployStart": "firebase deploy --only functions:onMySchedule",
     "lint-react": "cd ./react-frontend && npm run format && npm run lint",
     "deploy:react-frontend": "firebase deploy --only hosting:react-frontend",
     "deploy:react-frontend:dev": "cd ./react-frontend && npm run build && cd .. && npm run deploy:react-frontend"

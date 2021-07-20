@@ -25,18 +25,20 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "@firebase/testing": "^0.20.11",
+    "@golevelup/nestjs-discovery": "^2.3.1",
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
     "@types/module-alias": "^2.0.0",
-    "firebase-admin": "^9.2.0",
-    "firebase-functions": "^3.11.0",
+    "firebase-admin": "^9.6.0",
+    "firebase-functions": "^3.13.2",
+    "lodash.flatmap": "^4.5.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
-    "tsconfig-paths": "^3.9.0",
-    "@golevelup/nestjs-discovery": "^2.3.1",
-    "lodash.flatmap": "^4.5.0"
+    "sinon": "^11.1.1",
+    "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",

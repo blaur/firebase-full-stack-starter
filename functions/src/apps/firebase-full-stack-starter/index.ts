@@ -1,9 +1,11 @@
-import { PubsubService } from '@app/shared/services/pubsub.service';
+import { PubSubTopics } from '@app/shared/models/enum/pubsub-topics.enum';
+import { PubsubEventsService } from '@app/shared/services/pubsub.service';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
 import { AppDomainModule } from './src/app-domain.module';
+import { MyEventListener } from './src/pubsub/my-event.listener';
 import { MyScheduleScheduler } from './src/pubsub/my-schedule.scheduler';
 
 const expressServer = express();
@@ -26,12 +28,19 @@ export const appDomainApi = functions
   });
 
 // Pubsub listening on 'my-event'
-export const onMyEvent = PubsubService.topic('my-event', AppDomainModule);
+export const onMyEvent = PubsubEventsService.topic(
+  PubSubTopics.MyEvent,
+  AppDomainModule,
+  MyEventListener,
+  'europe-west1',
+  { timeoutSeconds: 540 },
+);
 
 // Pubsub scheduler
-export const onMySchedule = PubsubService.schedule(
+export const onMySchedule = PubsubEventsService.schedule(
   `every monday 06:00`,
   AppDomainModule,
   MyScheduleScheduler,
+  'europe-west1',
   { timeoutSeconds: 540 },
 );
