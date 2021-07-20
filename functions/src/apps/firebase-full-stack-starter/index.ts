@@ -1,5 +1,5 @@
 import { PubSubTopics } from '@app/shared/models/enum/pubsub-topics.enum';
-import { PubsubEventsService } from '@app/shared/services/pubsub.service';
+import { PubsubEventsService } from '@app/shared/services/pubsub-events.service';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';

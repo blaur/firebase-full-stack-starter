@@ -5,8 +5,8 @@ import {
 } from '@google-cloud/firestore';
 import { Injectable } from '@nestjs/common';
 import { FirebaseLoggingService } from './firebase-logging.service';
-import { GeneralHelperService } from '../general-helpers.service';
 import { FirebaseTestService } from './firebase-test.service';
+import { GeneralHelperService } from './general-helper.service';
 
 @Injectable()
 /**
@@ -228,32 +228,6 @@ export class FirestoreDaoService {
       .collection(collectionName)
       .doc(docId)
       .delete();
-  }
-
-  /**
-   * @return {admin.firestore.Firestore}
-   */
-  public getDatabase(): admin.firestore.Firestore {
-    return FirestoreDaoService.database;
-  }
-
-  /**
-   * @return {admin.firestore.Firestore} firestore
-   */
-  public getDatabase(): admin.firestore.Firestore {
-    if (!FirestoreInitializer.dbInstance) {
-      const initedTestApp = testApp.getTestFirebaseTestApp();
-      if (initedTestApp) {
-        FirestoreInitializer.dbInstance = initedTestApp.firestore();
-      } else {
-        FirestoreInitializer.dbInstance = admin.firestore();
-        FirestoreInitializer.dbInstance.settings({
-          timestampsInSnapshots: true,
-        });
-      }
-    }
-
-    return FirestoreInitializer.dbInstance;
   }
 
   /**

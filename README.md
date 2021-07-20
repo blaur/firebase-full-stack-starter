@@ -75,11 +75,11 @@ export const appDomainApi = functions
 ```
 
 ### Pubsub Topic Handler
-Use the PubsubService to register your topic. Provide the topic to listener for and then also the domain from where it should find the actual handler. The Pubsub Service will look for classes decorated with OnMessage with the topic: 
+Use the PubsubEventsService to register your topic. Provide the topic to listener for and then also the domain from where it should find the actual handler. The Pubsub Service will look for classes decorated with OnMessage with the topic: 
 
 ```javascript
 // Pubsub listening on 'my-event'
-export const onMyEvent = PubsubService.topic('my-event', AppDomainModule);
+export const onMyEvent = PubsubEventsService.topic('my-event', AppDomainModule);
 
 ......
 
@@ -106,7 +106,7 @@ To initiate the cloud schedule then first create a class with the PubsubSchedule
 
 ```javascript
 // Pubsub scheduler
-export const mySchedule = PubsubService.schedule(
+export const mySchedule = PubsubEventsService.schedule(
   `every monday 06:00`,
   AppDomainModule,
   MyScheduleScheduler,
